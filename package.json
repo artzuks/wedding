@@ -1,9 +1,10 @@
 {
   "name": "wedding",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -14,6 +15,7 @@
     "jade": "~1.11.0",
     "jquery": "^2.1.4",
     "morgan": "~1.6.1",
+    "pg": "^4.4.3",
     "serve-favicon": "~2.3.0"
   }
 }
