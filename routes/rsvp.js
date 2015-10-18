@@ -11,7 +11,7 @@ PG.connect(conString, function(err, client, done) {
 		if(err) {
 		  	return console.error('error running query', err);
 		}
-		console.log(result.rows[0].theTime);
+		console.log('Opened test conection at ', result.rows[0].theTime);
 		//output: Tue Jan 15 2013 19:12:47 GMT-600 (CST) 
 		client.end();
 	});
@@ -19,9 +19,27 @@ PG.connect(conString, function(err, client, done) {
 
 router.get('/check', function(req, res, next) {
   	var rsvpCode = req.query.code;
+  	PG.connect(conString, function(err, client, done) {
+		if(err) {
+			res.send('{status:"ERROR"}');
+			return console.error('error fetching client from pool', err, "connString: ", conString);
+		}
+		client.query('SELECT data AS "data" WHERE id=($1)', rsvpCode,function(err, result) {
+			if(err) {
+			  	return console.error('error running query', err);
+			}
+			if (result.rows.length === 0){
+				res.send('{status:"NOT_FOUND"}');
+			}else{
+				console.log(result.rows[0].data);
+				res.send('{status:"SUCCES",data:'+result.rows[0].data + "}");
+			}
+			
+			client.end();
+		});
+	});
 
-
-  	res.send('respond with a resource');
+  	
 });
 
 router.get('/reserve', function(req, res, next) {
