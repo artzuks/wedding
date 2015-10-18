@@ -24,15 +24,15 @@ router.get('/check', function(req, res, next) {
 			res.send('{status:"ERROR"}');
 			return console.error('error fetching client from pool', err, "connString: ", conString);
 		}
-		client.query('SELECT data AS "data" WHERE id=($1)', rsvpCode,function(err, result) {
+		client.query('SELECT data AS "data" FROM rsvp WHERE id=($1)', [rsvpCode], function(err, result) {
 			if(err) {
 			  	return console.error('error running query', err);
 			}
 			if (result.rows.length === 0){
-				res.send('{status:"NOT_FOUND"}');
+				res.send('{"status":"NOT_FOUND"}');
 			}else{
 				console.log(result.rows[0].data);
-				res.send('{status:"SUCCES",data:'+result.rows[0].data + "}");
+				res.send('{"status":"SUCCESS","data":'+result.rows[0].data + "}");
 			}
 			
 			client.end();

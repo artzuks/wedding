@@ -38,4 +38,21 @@
     $(window).bind("resize", ScaleSlider);
     $(window).bind("orientationchange", ScaleSlider);
     //responsive code end
+    $('#rsvpForm').keyup(function(el){
+        console.log("changed: ", el);
+        var value = el.currentTarget.value;
+        $.ajax({url:"/rsvp/check?code=" + value})
+        .done(function(data){
+            console.log(data);
+            try{
+                var res = JSON.parse(data);
+                if (res.status === "SUCCESS"){
+
+                  $('#rsvpName').text("Welcome " + res.data.name);
+                }
+            }catch(e){
+                console.log(e);
+            }
+        });
+    });
 });

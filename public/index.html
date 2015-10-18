@@ -10,7 +10,6 @@
     <meta name="author" content="">
 
     <title>Rebecca + Art</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -362,9 +361,15 @@
     <div class="container">
         <h1>RSVP</h1>
         <div class="row">
-            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+            <div class="col-lg-5 col-sm-push-6  col-sm-6">
                 <div class="clearfix"></div>
-                <hr class="section-heading-spacer">
+                <form role="form" data-toggle="validator">
+                    <div class="form-group">
+                        <label for="inputName" class="control-label">RSVP code</label>
+                        <input type="text" class="form-control" id="rsvpForm" required>
+                    </div>
+                </form>
+                <p id="rsvpName"></p>
             </div>
         </div>
 
